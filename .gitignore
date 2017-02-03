@@ -3,3 +3,5 @@ collatz-tests/
 RunCollatz.tmp
 rng.py
 rng.out
+cache_maker.py
+cache_maker.out

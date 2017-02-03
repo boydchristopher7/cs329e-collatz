@@ -21,20 +21,11 @@ def collatz_read(s):
 	return [int(a[0]), int(a[1])]
 
 # ------------
-# make_cache
+# collatz_eval
 # ------------
 
 global cache
-cache = []
-
-def make_cache():
-	cache_increment = 10000
-	cache.append(collatz_eval((len(cache)*cache_increment)+1, (len(cache)+1)*cache_increment))
-
-
-# ------------
-# collatz_eval
-# ------------
+cache = {}
 
 def collatz_eval(i, j):
 	"""
@@ -46,17 +37,26 @@ def collatz_eval(i, j):
 		i, j = j, i
 		
 	max_cycle = 0
-	for each in range(i, j + 1):
-		temp = each
-		cycle = 1
-		while temp > 1:
-			if temp % 2 == 0:
-				temp = temp / 2
-			else:
-				temp = temp * 3
-				temp += 1
 
-			cycle += 1
+	for n in range(i, j + 1):
+		temp = n
+		cycle = 1
+		while n > 1:
+			if n in cache:
+				cycle += cache[n]
+				break
+
+			else:
+				if n % 2 == 0:
+					n = n / 2
+				else:
+					n = n * 3
+					n += 1
+
+				cycle += 1
+
+		if temp not in cache:
+			cache[temp] = cycle
 
 		if cycle > max_cycle:
 			max_cycle = cycle
