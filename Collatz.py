@@ -43,7 +43,7 @@ def collatz_eval(i, j):
 		cycle = 1
 		while n > 1:
 			if n in cache:
-				cycle += cache[n]
+				cycle += cache[n] - 1
 				break
 
 			else:
